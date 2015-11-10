@@ -40,13 +40,13 @@ function doInclude ($file, $tabIndex = '') {
 
 		}, 
 		$contents);
-			
+
 	return $contents;
 }
 
-
 $file = $argv[1];
+$outputFile = $argv[2];
 define('BASE_PATH', dirname($file));
 
-echo doInclude($file) . "\n\n\n\n# -----------\n# Merged with ramlMerge.php\n# http://www.mikestowe.com\n\n";
-?>
+file_put_contents($outputFile, doInclude($file));
+file_put_contents($outputFile, preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", file_get_contents($outputFile)));
